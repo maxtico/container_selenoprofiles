@@ -16,7 +16,7 @@ WORKDIR /app
 # Copy the current directory contents into the container
 COPY . /app
 
-RUN conda create -yn sp4 python=3.9 
+RUN conda create -yn sp4 python=3.9
 
 RUN echo "source activate sp4" > ~/.bashrc
 
@@ -28,6 +28,9 @@ RUN /bin/bash -c "source ~/.bashrc && /opt/conda/envs/sp4/bin/selenoprofiles -se
 
 # Downloading profiles
 RUN /bin/bash -c "source ~/.bashrc && echo -e '\n' | /opt/conda/envs/sp4/bin/selenoprofiles -download"
+
+# Running selenoprofiles
+CMD ["/opt/conda/envs/sp4/bin/selenoprofiles", "-o", "sp_results", "-t", "/app/Cavia_aperea.CavAp1.0.dna.toplevel.fa", "-s", "cavia_aperea", "-p", "metazoa,machinery", "-output_gtf_file", "/app/cavia_ap>
 
 # Deactivate conda environment (for sp4)
 RUN /bin/bash -c "source ~/.bashrc && source deactivate"
